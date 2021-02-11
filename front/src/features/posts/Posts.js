@@ -18,7 +18,7 @@ const Posts = () => {
 
     //const [posts, setposts] = React.useState();
     const posts = useSelector(selectPosts);
-    const dispacth = useDispatch();
+    const dispatch = useDispatch();
 
     const [content, setcontent] =React.useState();
     const [refresh, setrefresh] = React.useState(true);
@@ -39,7 +39,7 @@ const Posts = () => {
         const fecthPosts = async () => {
             const fetchData = await getPosts();
             //setposts(fetchData);
-            dispacth(update(fetchData));
+            dispatch(update(fetchData));
         }
         if (refresh) {
             fecthPosts();
