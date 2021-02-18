@@ -5,6 +5,7 @@ import Posts from './features/posts/Posts.js'
 import { Grommet, Box, Button } from "grommet";
 
 import fire from './fire.js';
+import Signup from "./features/Signup/Signup.js";
 
 const theme = {
   global: {
@@ -43,13 +44,18 @@ function App() {
             <Route path="/" exact>
               <Login />
             </Route>
+            <Route path="/signup" exact>
+              <Signup />
+            </Route>
           </Switch>
         )
       : (
-        <Box fill align="center" justify="center" background="dark-2">
-           <Posts />
-              <Button label="sign out" onClick={()=> fire.auth().signOut()} />
-        </Box>
+        <Switch>
+        <Route path="/" exact>
+        <Posts />
+      </Route>
+      </Switch>
+       
       )}
       
       </Router>

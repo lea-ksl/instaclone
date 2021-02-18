@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { Box, TextInput, Text, Button } from 'grommet';
 
@@ -32,7 +33,7 @@ const Login = () => {
                 <Text margin="small" color="red">{error}</Text>
             }
             <Button label="Se connecter" onClick={(e) => handleSummit(e)} />
-
+            <Box>Pas encore de compte ? <Link color='#ffffff' to="/signup">Signup</Link></Box>
         </Box>
     )
 }

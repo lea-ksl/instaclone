@@ -1,7 +1,7 @@
 import React from "react";
 import fire from '../../fire.js';
 import {Box, Button, Text, TextInput} from "grommet";
-import {Refresh} from "grommet-icons";
+import {Refresh, Favorite} from "grommet-icons";
 
 import Card from "../../components/Card";
 import CardConcave from "../../components/CardConcave";
@@ -21,6 +21,7 @@ const Posts = () => {
     const dispatch = useDispatch();
 
     const [content, setcontent] =React.useState();
+    //const [like, setlike] = React.useState();
     const [refresh, setrefresh] = React.useState(true);
 
     const user = fire.auth().currentUser;
@@ -50,6 +51,7 @@ const Posts = () => {
 
 
     return(
+        <Box fill align="center" justify="center" background="dark-2">
         <Box align="center">
             <Box direction="row" gap="small">
                 <TextInput placeholder="content" onChange={(e)=> setcontent(e.target.value)} />
@@ -63,7 +65,7 @@ const Posts = () => {
             align="center"
             margin="medium"
             width="medium"
-            height="medium">
+            height="large">
                 {posts ? 
                 posts.map(post => (
                     <CardConcave align="center"
@@ -72,7 +74,8 @@ const Posts = () => {
                     padding="medium"
                     margin="medium"
                     width="medium">
-                        <Text>{post.content} {userEmail}</Text>
+                        <Text>{post.content}{userEmail}</Text>
+                        <Favorite size='medium' /> 
                     </CardConcave>
                 ))
 
@@ -80,6 +83,9 @@ const Posts = () => {
                 <Text>Ceci sont les posts</Text>
                 }
             </Card>
+            
+        </Box>
+        <Button label="sign out" onClick={()=> fire.auth().signOut()} />
         </Box>
     )
 }
