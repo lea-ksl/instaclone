@@ -6,7 +6,7 @@ import {Refresh, Favorite} from "grommet-icons";
 import Card from "../../components/Card";
 import CardConcave from "../../components/CardConcave";
 
-import {addPost, getPosts, addLike, getLikes} from "../../services/postsServices";
+import {addPost, getPosts, addLike} from "../../services/postsServices";
 
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -73,11 +73,10 @@ const Posts = () => {
                     padding="medium"
                     margin="medium"
                     width="medium">
-                        <Text>{post.content}{userEmail}</Text>
+                        <Text>{post.content} {userEmail}</Text>
                         <Button 
                         icon={<Favorite /> }onClick={()=> addLike(post.id, post.like)} />
-                        <Text>Nombre de like:{post.like}</Text>
-                        <Text>id: {post.id} / likes : {post.like}</Text>
+                        <Text>{post.like} likes</Text>
                     </CardConcave>
                 ))
 

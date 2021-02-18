@@ -5,7 +5,7 @@ const postSchema = new mongoose.Schema({
     like: {
         type: Number,
         defaultValue: 0
-    },
+    }
 })
 
 postSchema.set('toJSON', {

@@ -28,7 +28,7 @@ postsRouter.post('/', async (req, res) => {
 postsRouter.put('/:id',(req,res)=>{
     const auth = req.currentUser;
     if (auth){
-    Post.findById(req.params.id,  function(err,post){
+    Post.findById(req.params.id, async function(err,post){
         if(err){
             res.send(err)
         }
@@ -41,6 +41,8 @@ postsRouter.put('/:id',(req,res)=>{
             }
             res.json({message:'Update ok'})
         })
+        const posts = await Post.find({});
+        req.io.emit('UPDATE', posts);
     })
 }
 })
