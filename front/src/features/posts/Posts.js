@@ -6,7 +6,7 @@ import {Refresh, Favorite} from "grommet-icons";
 import Card from "../../components/Card";
 import CardConcave from "../../components/CardConcave";
 
-import {addPost, getPosts} from "../../services/postsServices";
+import {addPost, getPosts, addLike, getLikes} from "../../services/postsServices";
 
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -16,22 +16,21 @@ update, selectPosts
 
 const Posts = () => {
 
-    //const [posts, setposts] = React.useState();
     const posts = useSelector(selectPosts);
     const dispatch = useDispatch();
 
-    const [content, setcontent] =React.useState();
-    //const [like, setlike] = React.useState();
-    const [refresh, setrefresh] = React.useState(true);
-
     const user = fire.auth().currentUser;
     const userEmail = user.email;
+
+    const [content, setcontent] =React.useState();
+    const like = 0;
+    const [refresh, setrefresh] = React.useState(true);
 
     const publish = (e) => {
         e.preventDefault();
         
         if (content){
-            addPost(content)
+            addPost(content, like).then(()=>setrefresh(true))
         }
     }
 
@@ -65,7 +64,7 @@ const Posts = () => {
             align="center"
             margin="medium"
             width="medium"
-            height="large">
+            height="auto">
                 {posts ? 
                 posts.map(post => (
                     <CardConcave align="center"
@@ -75,7 +74,10 @@ const Posts = () => {
                     margin="medium"
                     width="medium">
                         <Text>{post.content}{userEmail}</Text>
-                        <Favorite size='medium' /> 
+                        <Button 
+                        icon={<Favorite /> }onClick={()=> addLike(post.id, post.like)} />
+                        <Text>Nombre de like:{post.like}</Text>
+                        <Text>id: {post.id} / likes : {post.like}</Text>
                     </CardConcave>
                 ))
 

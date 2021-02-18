@@ -12,7 +12,7 @@ postsRouter.get('/', async (req, res) => {
     return res.status(403).send('Not authorized');  
 });
 
-postsRouter.post('/', async (req, res)=> {
+postsRouter.post('/', async (req, res) => {
     const auth = req.currentUser;
     if (auth){
         const post = new Post(req.body)
@@ -24,5 +24,25 @@ postsRouter.post('/', async (req, res)=> {
     return res.status(403).send('Not authorized')
     
 });
+
+postsRouter.put('/:id',(req,res)=>{
+    const auth = req.currentUser;
+    if (auth){
+    Post.findById(req.params.id,  function(err,post){
+        if(err){
+            res.send(err)
+        }
+        console.log(req.body)
+        console.log(post)
+        post.like = parseInt(req.body.like,10) + 1;
+        const savePost = post.save( function(err){
+            if(err){
+                res.send(err)
+            }
+            res.json({message:'Update ok'})
+        })
+    })
+}
+})
 
 module.exports = postsRouter;

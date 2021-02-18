@@ -19,14 +19,44 @@ const createToken = async () => {
     return payloadHeader;
 }
 
-export const addPost = async (content) => {
+export const addPost = async (content, like) => {
     const header = await createToken();
     console.log(content)
     const payload ={
-        content
+        content,
+        like
     }
     try {
         const res = await axios.post(url, payload, header);
+        return res.data;
+    }catch (e) {
+        console.error(e);
+    }
+    
+}
+
+export const getLikes = async id => {
+    const user = await fire.auth().currentUser;
+    const header = await createToken();
+    try {
+        const res = await axios.get(`${url}/${id}`,header)
+    return res.data
+    } catch (e) {
+        console.error(e);
+    }
+    
+}
+
+
+export const addLike = async (id,like) => {
+    const header = await createToken();
+    const ids = await getLikes(id);
+    const payload = {
+        like
+    }
+
+    try {
+        const res = await axios.put(`${url}/${id}`,payload, header);
         return res.data;
     }catch (e) {
         console.error(e);
