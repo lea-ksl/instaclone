@@ -25,16 +25,16 @@ postsRouter.post('/', async (req, res) => {
     
 });
 
-postsRouter.put('/:id',(req,res)=>{
+postsRouter.put('/:postId',(req,res)=>{
     const auth = req.currentUser;
     if (auth){
-    Post.findById(req.params.id, async function(err,post){
+    Post.findById(req.params.postId, async function(err,post){
         if(err){
             res.send(err)
         }
         console.log(req.body)
         console.log(post)
-        post.like = parseInt(req.body.like,10) + 1;
+        post.likes = parseInt(req.body.likes,10) + 1;
         const savePost = post.save( function(err){
             if(err){
                 res.send(err)

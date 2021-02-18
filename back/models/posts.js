@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
     content: String,
-    like: {
+    likes: {
         type: Number,
         defaultValue: 0
     }

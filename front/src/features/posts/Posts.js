@@ -23,14 +23,14 @@ const Posts = () => {
     const userEmail = user.email;
 
     const [content, setcontent] =React.useState();
-    const like = 0;
+    const likes = 0;
     const [refresh, setrefresh] = React.useState(true);
 
     const publish = (e) => {
         e.preventDefault();
         
         if (content){
-            addPost(content, like).then(()=>setrefresh(true))
+            addPost(content, likes).then(()=>setrefresh(true))
         }
     }
 
@@ -75,8 +75,8 @@ const Posts = () => {
                     width="medium">
                         <Text>{post.content} {userEmail}</Text>
                         <Button 
-                        icon={<Favorite /> }onClick={()=> addLike(post.id, post.like)} />
-                        <Text>{post.like} likes</Text>
+                        icon={<Favorite /> }onClick={()=> addLike(post.id, post.likes)} />
+                        <Text>{post.likes} likes</Text>
                     </CardConcave>
                 ))
 
